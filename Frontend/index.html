@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Androids Today</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="Main">
+    <h1>Buy Android for Sale Today!!!</h1>
+    <div class="slideshow-android">
+      <div class="slide">
+        <img src="https://i5.walmartimages.com/seo/Samsung-Galaxy-S22-5G-256GB-WHITE-Unlocked_061b65af-135f-43d6-8625-3dee3810509d.e0eecbcfdc3c9fbc457c320844b59f11.jpeg" alt="Samsung Galaxy 25 White">
+        <img src="https://ss7.vzw.com/is/image/VerizonWireless/samsung-galaxy-s25-plus-navy?wid=465&hei=465&fmt=webp" alt="Samsung Galaxy 25 Navy Blue">
+        <img src="https://m.media-amazon.com/images/I/51RUo7-je3L.jpg" alt="Samsung Galaxy 25 Yellow">
+        <img src="https://m.media-amazon.com/images/I/71tLy-xvMwL._UF894,1000_QL80_.jpg" alt="Samsung Galaxy 25 Green">
+      </div>
+      <div class="arrow prev" onclick="changeSlide(-1)">&#10094;</div>
+      <div class="arrow next-arrow" onclick="changeSlide(1)">&#10095;</div>
+    </div>
+
+    <div id="image-name" style="font-size: 18px; margin-top: 10px;"></div>
+
+    <div class="buttons">
+      <button onclick="addToCart()">Add to Cart</button>
+      <button class="cartbutton" onclick="showPage('choicePage1')">Go to Cart/Purchase</button>
+    </div>
+
+    <div id="cart-icon" style="position: fixed; top: 10px; right: 10px; cursor: pointer;" onclick="showPage('choicePage1')">
+      🛒 <span id="cart-count">0</span>
+    </div>
+  </div>
+
+  <div id="choicePage1" class="page">
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+
+      <h3>Available Android Options</h3>
+      <select id="product-dropdown" onchange="previewProduct()">
+        <option value="">-- Select a product --</option>
+      </select>
+
+      <div id="dropdown-preview" style="margin-top: 10px;"></div>
+      <button id="dropdown-add-btn" onclick="addDropdownToCart()">Add Selected Product to Cart</button>
+
+      <br><br>
+      <button onclick="showPage('Main')">Back to Shop</button>
+      <button onclick="submitOrder()">Submit Order!</button>
+    </div>
+  </div>
+
+  <div id="choicePage2" class="page">
+    <h3>Congratulations!!! Your Purchase Has Been Submitted.</h3>
+    <button onclick="showPage('Main')">Back to Shop</button>
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.slide img');
+    let currentIndex = 0;
+    const cart = [];
+    const soldOutItems = [];
+
+    function showImage(index) {
+      currentIndex = index;
+      images.forEach((img, i) => {
+        img.style.display = i === index ? 'block' : 'none';
+      });
+      document.getElementById('image-name').textContent = images[index].alt;
+      updateAddToCartButton();
+    }
+
+    function changeSlide(direction) {
+      currentIndex += direction;
+      if (currentIndex >= images.length) currentIndex = 0;
+      if (currentIndex < 0) currentIndex = images.length - 1;
+      showImage(currentIndex);
+    }
+
+    function updateAddToCartButton() {
+      const addBtn = document.querySelector('.buttons button');
+      const currentAlt = images[currentIndex].alt;
+      if (soldOutItems.includes(currentAlt)) {
+        addBtn.disabled = true;
+        addBtn.textContent = 'Sold Out';
+      } else {
+        addBtn.disabled = false;
+        addBtn.textContent = 'Add to Cart';
+      }
+    }
+
+    function addToCart() {
+      const currentImage = images[currentIndex];
+      if (soldOutItems.includes(currentImage.alt)) {
+        alert('Sorry, this item is sold out!');
+        return;
+      }
+      cart.push({ src: currentImage.src, alt: currentImage.alt });
+      document.getElementById('cart-count').textContent = cart.length;
+      alert('Added to cart: ' + currentImage.alt);
+      displayCartItems();
+    }
+
+    function displayCartItems() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsDiv.textContent = "Your cart is empty.";
+        return;
+      }
+      cart.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.style.marginBottom = '15px';
+        itemDiv.style.border = '1px solid #ccc';
+        itemDiv.style.padding = '10px';
+        itemDiv.style.display = 'flex';
+        itemDiv.style.alignItems = 'center';
+        itemDiv.style.gap = '15px';
+
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.alt;
+        img.style.width = '100px';
+
+        const name = document.createElement('div');
+        name.textContent = item.alt;
+        name.style.fontSize = '18px';
+        name.style.fontWeight = 'bold';
+
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(name);
+        cartItemsDiv.appendChild(itemDiv);
+      });
+    }
+
+    function updateDropdown() {
+      const dropdown = document.getElementById('product-dropdown');
+      dropdown.innerHTML = '<option value="">-- Select a product --</option>';
+      images.forEach((img, index) => {
+        if (!soldOutItems.includes(img.alt)) {
+          const option = document.createElement('option');
+          option.value = index;
+          option.textContent = img.alt;
+          dropdown.appendChild(option);
+        }
+      });
+    }
+
+    function previewProduct() {
+      const selectedIndex = document.getElementById('product-dropdown').value;
+      const previewDiv = document.getElementById('dropdown-preview');
+      if (selectedIndex === "") {
+        previewDiv.innerHTML = "";
+        return;
+      }
+      const img = images[selectedIndex];
+      previewDiv.innerHTML = `
+        <img src="${img.src}" alt="${img.alt}" style="width: 150px;"><br>
+        <strong>${img.alt}</strong>
+      `;
+    }
+
+    function addDropdownToCart() {
+      const selectedIndex = document.getElementById('product-dropdown').value;
+      if (selectedIndex === "") {
+        alert("Please select a product first.");
+        return;
+      }
+      const img = images[selectedIndex];
+      if (soldOutItems.includes(img.alt)) {
+        alert("Sorry, this item is sold out!");
+        return;
+      }
+      cart.push({ src: img.src, alt: img.alt });
+      document.getElementById('cart-count').textContent = cart.length;
+      alert('Added to cart: ' + img.alt);
+      displayCartItems();
+    }
+
+    function submitOrder() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      cart.forEach(item => {
+        if (!soldOutItems.includes(item.alt)) {
+          soldOutItems.push(item.alt);
+        }
+      });
+      cart.length = 0;
+      document.getElementById('cart-count').textContent = '0';
+      alert('Order submitted!');
+      showPage('choicePage2');
+      updateAddToCartButton();
+    }
+
+    function showPage(pageId) {
+      const pages = ['Main', 'choicePage1', 'choicePage2'];
+      pages.forEach(id => {
+        document.getElementById(id).style.display = (id === pageId) ? 'block' : 'none';
+      });
+      if (pageId === 'choicePage1') {
+        displayCartItems();
+        updateDropdown();
+        document.getElementById('dropdown-preview').innerHTML = '';
+        document.getElementById('product-dropdown').value = '';
+      }
+      if (pageId === 'Main') {
+        showImage(currentIndex);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showImage(currentIndex);
+      showPage('Main');
+    });
+  </script>
+</body>
+</html>
