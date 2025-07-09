@@ -19,3 +19,10 @@ Built with:
 
 ```bash
 git clone https://github.com/erbrown349/MVP-ecommerce/edit/main/README.md
+```
+#  In case you want to run Test Files: 
+
+Run this command in your terminal:
+```bash
+npm test
+
