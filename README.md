@@ -13,4 +13,9 @@ Built with:
 ✅ HTML, CSS, JavaScript  
 ✅ Pure frontend (no backend)
 
-Live Demo: 
+#  Live Demo: https://erbrown349.github.io/MVP-ecommerce/ 
+
+# In case you want to clone the repository
+
+```bash
+git clone https://github.com/erbrown349/MVP-ecommerce/edit/main/README.md
