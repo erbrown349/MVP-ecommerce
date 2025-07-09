@@ -1,4 +1,4 @@
-# MVP-ecommerce/Frontend Test 
+# MVP-ecommerce/Frontend Developer Test 
 
 # Android Store Slideshow
 
