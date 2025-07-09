@@ -13,7 +13,7 @@ Built with:
 ✅ HTML, CSS, JavaScript  
 ✅ Pure frontend (no backend)
 
-#  Live Demo: https://erbrown349.github.io/MVP-ecommerce/ 
+#  Live Demo: https://mvp-ecommerce.onrender.com 
 
 # In case you want to clone the repository
 
