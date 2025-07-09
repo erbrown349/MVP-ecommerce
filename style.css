@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .page {
+    display: none;
+  }
+  
+  body {
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom right, #f4f4f4, #e0eaff);
+    min-height: 100vh;
+  }
+  
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 2;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  
+  .slide {
+    position: relative;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: 10%;
+  }
+  
+  .prev {
+    left: 15px;
+  }
+  
+  .next-arrow {
+    right: 15px;
+  }
+  
+  h1 {
+    color: #d57a42;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px rgb(203, 211, 38),
+      0 0 20px rgb(156, 124, 19),
+      0 0 40px rgb(0, 0, 0);
+  }
+  
+  button {
+    padding: 10px 10px;
+    color: #ffffff;
+    background-color: hsl(95, 75%, 52%);
+    border-radius: 9999px;
+    transition: background-color 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #87ff31;
+    color: white;
+  }
+  
+  .cartbutton {
+    background-color: #2980b9;
+  }
+  
+  .cartbutton:hover {
+    background-color: #1f6391;
+  }
